@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>0804-0810周总结 | Gridea</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="http://localhost:4004/favicon.ico?v=1570673636958">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="http://localhost:4004/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://localhost:4004">
+        <img class="avatar" src="http://localhost:4004/images/avatar.png?v=1570673636958" alt="" width="32px" height="32px">
+      </a>
+      <a href="http://localhost:4004">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="http://localhost:4004/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="http://localhost:4004/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="http://localhost:4004/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="http://localhost:4004/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">0804-0810周总结</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-08-04</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="http://localhost:4004/tag/L7RisVMicG">
+                    postgis
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="http://localhost:4004/tag/yQeUc4vWZg">
+                    asp.net web api
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="http://localhost:4004/tag/q9RWszzMh_">
+                    angularjs
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h1 id="0804-0810周">0804-0810周</h1>
+<h2 id="0805">0805</h2>
+<ol>
+<li>给出一个WKT数据，通过ST_GeomFromText构造geometry数据，然后再使用ST_Intersects求相交数据；</li>
+</ol>
+<pre><code class="language-sql">SELECT gid, linecolor, proname, protype, proextent,shape_leng, shape_area, geom FROM public.kg_land_bound2 
+	where St_Intersects(geom, 
+		ST_GeomFromText('POLYGON((57404.91490982982 98730.52662771994,57404.91490982982 99013.10219287108,57405.87564580966 99022.85670897189,57408.720933204255 99032.23636448933,57413.34142921469 99040.88070452206,57419.55957077049 99048.45753193041,57427.136398178845 99054.67567348621,57435.780738211564 99059.29616949665,57445.16039372901 99062.14145689124,57454.91490982982 99063.10219287108,57721.61544323089 99063.10219287108,57731.3699593317 99062.14145689124,57740.74961484915 99059.29616949665,57749.39395488187 99054.67567348621,57756.97078229022 99048.45753193041,57763.18892384602 99040.88070452206,57767.80941985646 99032.23636448933,57770.65470725105 99022.85670897189,57771.61544323089 99013.10219287108,57771.61544323089 98730.52662771994,57770.65470725105 98720.77211161914,57767.80941985646 98711.39245610169,57763.18892384602 98702.74811606896,57756.97078229022 98695.17128866061,57749.39395488187 98688.95314710481,57740.74961484915 98684.33265109437,57731.3699593317 98681.48736369978,57721.61544323089 98680.52662771994,57454.91490982982 98680.52662771994,57445.16039372901 98681.48736369978,57435.780738211564 98684.33265109437,57427.136398178845 98688.95314710481,57419.55957077049 98695.17128866061,57413.34142921469 98702.74811606896,57408.720933204255 98711.39245610169,57405.87564580966 98720.77211161914,57404.91490982982 98730.52662771994))',4547)
+   );
+</code></pre>
+<ol start="2">
+<li>asp.net web api中，post请求的方式比较怪异，最好使用dynamic数据类型，在使用动态类型时，需要对数据进行解析操作：</li>
+</ol>
+<pre><code class="language-c#">[HttpPost]
+[Route(&quot;getSpatialQueryInfo&quot;)]
+public Result&lt;List&lt;KgLandBound&gt;&gt; getSpatialQueryInfo(dynamic obj)
+{
+    string wkt = obj.wkt;
+    return sas.spatialQuery(wkt);
+}
+</code></pre>
+<ol start="3">
+<li>font awesome中使用数字</li>
+</ol>
+<pre><code class="language-html">&lt;span class=&quot;fa-stack&quot;&gt;
+   &lt;span class=&quot;fa fa-circle-thin fa-stack-2x&quot; style=&quot;color: red&quot;&gt;&lt;/span&gt;
+   &lt;strong class=&quot;fa-stack-1x&quot; style=&quot;color: red&quot;&gt;2&lt;/strong&gt;
+&lt;/span&gt;
+</code></pre>
+<ol start="4">
+<li>angularjs中，执行ng-repeat操作时，遍历时加上index</li>
+</ol>
+<pre><code class="language-js">ng-repeat=&quot;layer in table.data track by $index&quot;
+</code></pre>
+<ol start="5">
+<li>根据pg查出来的geometry，顺带把面积也进行查询</li>
+</ol>
+<pre><code class="language-sql">select res.gid,res.ydtype,res.ydcode,res.shape_area,st_area(res.wkt),res.wkt from (
+ SELECT gid, ydtype, ydcode,  shape_area,ST_Intersection(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547)) as wkt
+ FROM public.kg_land_bound2  where ST_Intersects(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547))
+) as res 
+
+</code></pre>
+<h2 id="0806">0806</h2>
+<ol>
+<li>angularjs中的watch使用方法：</li>
+</ol>
+<pre><code class="language-js">$scope.$watch(&quot;bufferDistance&quot;,function (newValue,oldValue){
+    if(newValue &gt; 0){
+        $scope.showDrawLine = true;
+    }else{
+        $scope.showDrawLine = false;
+    }
+},true);
+</code></pre>
+<ol start="2">
+<li>postgresql中的简单分页:limit代表每页个数，offset代表偏移量，以下面的代码为例，offset 20代表前面偏移20个数据，从第二十一个数据开始；</li>
+</ol>
+<pre><code class="language-sql">SELECT gid, ydcode, ydtype, capability, bldhlimit,shape_leng, shape_area, geom
+	FROM public.kg_land_bound2 order by gid limit 10 offset 20;
+</code></pre>
+<ol start="3">
+<li>angularjs使用ng-class对于样式的动态修改，使用ng-repeat循环生成子列表。其中通过$index与selected来进行判断，如果两个值相等，那么，selectedBaseMap样式将会生效，从而出现样式切换的效果；</li>
+</ol>
+<pre><code class="language-html">&lt;div ng-repeat=&quot;item in baseLayers&quot;
+         ng-class=&quot;{selectedBaseMap:$index == selected}&quot;
+         style=&quot;background: url('../../App/assets/images/{{item.img}}')&quot;
+         ng-click=&quot;showBaseMap(item.title,$index)&quot;&gt;
+        &lt;span class=&quot;baseMapTitle&quot; ng-class=&quot;{baseMapTitleActive:$index == selected}&quot;&gt;
+            {{item.title}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+</code></pre>
+<pre><code class="language-js">$scope.selected = 1 //给selected设置一个默认值，使得有默认选中的效果
+</code></pre>
+<ol start="4">
+<li>完整的分页查询语句</li>
+</ol>
+<pre><code class="language-sql">select 
+	res.gid,
+	res.ydtype,
+	res.ydcode,
+	res.shape_area,
+	st_area(res.wkt),
+	res.wkt, 
+	res.fullCount from 
+	(
+		SELECT 
+			gid, 
+			ydtype, 
+			ydcode,  
+			shape_area,
+			count(*) OVER() AS fullCount,
+			ST_Intersection(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547)) as wkt
+		FROM 
+			public.kg_land_bound2  
+		where 
+			ST_Intersects(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547))
+		order by gid limit 3 offset 0
+	)
+as res;
+</code></pre>
+<h2 id="0807">0807</h2>
+<ol>
+<li>ng-table的分页方式</li>
+</ol>
+<pre><code class="language-html"> &lt;table ng-table=&quot;tp&quot; class=&quot;table table-condensed table-bordered table-striped&quot;&gt;
+                &lt;tr ng-repeat=&quot;row in $data track by $index&quot;&gt;
+                    &lt;td data-title=&quot;'地块名称'&quot;&gt;{{row.ydcode}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'地块编码'&quot; style=&quot;max-width: 330px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;&quot; &gt;{{row.ydtype}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'地块面积'&quot; style=&quot;max-width: 330px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;&quot; &gt;{{row.area}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'操作'&quot;&gt;
+                        &lt;span class=&quot;fa fa-crosshairs&quot; ng-click=&quot;moveToData($index)&quot; title=&quot;移动&quot;&gt;&lt;/span&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+&lt;script&gt;
+function bufferQuery(wkt,distance) {
+                $scope.loadingPanel = true;
+                spatialApi.getPagedSpatialAnalysisInfo(wkt,1,20).then(
+                    resp =&gt; {
+                        showData(resp.data.data.data);
+                        $scope.table.data = resp.data.data.data;
+                        $scope.loadingPanel = false;
+                    }
+                );
+                //展示查询返回的数据
+                function showData(data) {
+                    $scope.tp = new NgTableParams(
+                        {
+                            count: 20,
+                        },
+                        {
+                            counts: [],
+                            dataset:data,
+                            getData: (params) =&gt; {
+                                return spatialApi.getPagedSpatialAnalysisInfo(wkt,params.page(),params.count()).then(res =&gt; {
+                                    params.total(res.data.data.total);
+                                    $scope.table.data = res.data.data.data;
+                                    return res.data.data.data;
+                                });
+                            },
+                        }
+                    );
+
+                }
+            }
+&lt;/script&gt;
+</code></pre>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="http://localhost:4004/post/hello-gridea">
+              <h3 class="post-title">
+                下一篇：Hello Gridea
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="http://localhost:4004/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

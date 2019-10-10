@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://localhost:4004</id>
+    <title>Gridea</title>
+    <updated>2019-10-10T02:13:59.424Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://localhost:4004"/>
+    <link rel="self" href="http://localhost:4004/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>http://localhost:4004/images/avatar.png</logo>
+    <icon>http://localhost:4004/favicon.ico</icon>
+    <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[0825-0831周总结]]></title>
+        <id>http://localhost:4004/post/0825-0831周总结</id>
+        <link href="http://localhost:4004/post/0825-0831周总结">
+        </link>
+        <updated>2019-08-24T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0825-0831周">0825-0831周</h1>
+<h2 id="0830">0830</h2>
+<ol>
+<li>对于WFS Transaction的使用，首先要确保geoserver的权限打开，即如果不确定的话，启动匿名模式；</li>
+</ol>
+<pre><code>http://127.0.0.1:8080/geoserver/web/wicket/page?57
+</code></pre>
+<ol start="2">
+<li>构造WFS/WMS相关语句时，可以参考使用demo request页面，查看相关的示例请求；</li>
+</ol>
+<pre><code>http://127.0.0.1:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.demo.DemoRequestsPage?59
+</code></pre>
+<ol start="3">
+<li>根据demo request生成的示例请求进行相关的操作即可；</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0818-0824周总结]]></title>
+        <id>http://localhost:4004/post/0818-0824周总结</id>
+        <link href="http://localhost:4004/post/0818-0824周总结">
+        </link>
+        <updated>2019-08-17T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0818-0824周">0818-0824周</h1>
+<h2 id="0819">0819</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0811-0817周总结]]></title>
+        <id>http://localhost:4004/post/0811-0817周总结</id>
+        <link href="http://localhost:4004/post/0811-0817周总结">
+        </link>
+        <updated>2019-08-10T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0811-0817周">0811-0817周</h1>
+<h2 id="0812">0812</h2>
+<ol>
+<li>在打印网页时，如果遇到img中的src是从http形式，那么有可能是打印不出来的，这是最好的解决办法就是，首先把img转为base64形式，再进行打印；如果这种办法依然不可以。那么可以考虑将打印页面使用html2canvas插件，将网页转为canvas，然后把canvas元素进行打印。</li>
+<li>将图片转为base64格式</li>
+</ol>
+<pre><code class="language-js">function getBase64(img){
+    function getBase64Image(img,width,height) {
+   //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+        var canvas = document.createElement(&quot;canvas&quot;);
+        canvas.width = width ? width : img.width;
+        canvas.height = height ? height : img.height;
+
+        var ctx = canvas.getContext(&quot;2d&quot;);
+       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataURL = canvas.toDataURL();
+        return dataURL;
+    }
+    var image = new Image();
+    image.crossOrigin = '';
+    image.src = img;
+    var deferred=$q.defer();
+    if(img){
+        image.onload =function (){
+            deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+        };
+        return deferred.promise;//问题要让onload完成后再return sessionStorage['imgTest']
+    }
+}
+</code></pre>
+<h2 id="0813">0813</h2>
+<ol>
+<li>ol中指定图层的添加位置，一般用于将图层添加的最上部或最下部；</li>
+</ol>
+<pre><code class="language-js">map.getLayers().insertAt(0,layer);
+</code></pre>
+<h2 id="0815">0815</h2>
+<ol>
+<li>ratio,在ol中，<a href="http://127.0.0.1/ol/apidoc/ol.html">ol</a><a href="http://127.0.0.1/ol/apidoc/ol.source.html">.source</a>.ImageArcGISRest中存在一个ratio参数，在之前的添加agserver图层的过程中，把ratio误理解成透明度，然后填成了1。这就造成了，在手动添加对应图层时，客户端会一直发送请求至服务端，当修改为默认值1.5时，则不再出现这种情况，目前暂不知道原因是什么。ratio指的是请求图片的大小与map viewport的比率，目前尚不清楚为什么比率为1:1时出现的这种不断发送请求的情况。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[0804-0810周总结]]></title>
+        <id>http://localhost:4004/post/0804-0810周总结</id>
+        <link href="http://localhost:4004/post/0804-0810周总结">
+        </link>
+        <updated>2019-08-03T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="0804-0810周">0804-0810周</h1>
+<h2 id="0805">0805</h2>
+<ol>
+<li>给出一个WKT数据，通过ST_GeomFromText构造geometry数据，然后再使用ST_Intersects求相交数据；</li>
+</ol>
+<pre><code class="language-sql">SELECT gid, linecolor, proname, protype, proextent,shape_leng, shape_area, geom FROM public.kg_land_bound2 
+	where St_Intersects(geom, 
+		ST_GeomFromText('POLYGON((57404.91490982982 98730.52662771994,57404.91490982982 99013.10219287108,57405.87564580966 99022.85670897189,57408.720933204255 99032.23636448933,57413.34142921469 99040.88070452206,57419.55957077049 99048.45753193041,57427.136398178845 99054.67567348621,57435.780738211564 99059.29616949665,57445.16039372901 99062.14145689124,57454.91490982982 99063.10219287108,57721.61544323089 99063.10219287108,57731.3699593317 99062.14145689124,57740.74961484915 99059.29616949665,57749.39395488187 99054.67567348621,57756.97078229022 99048.45753193041,57763.18892384602 99040.88070452206,57767.80941985646 99032.23636448933,57770.65470725105 99022.85670897189,57771.61544323089 99013.10219287108,57771.61544323089 98730.52662771994,57770.65470725105 98720.77211161914,57767.80941985646 98711.39245610169,57763.18892384602 98702.74811606896,57756.97078229022 98695.17128866061,57749.39395488187 98688.95314710481,57740.74961484915 98684.33265109437,57731.3699593317 98681.48736369978,57721.61544323089 98680.52662771994,57454.91490982982 98680.52662771994,57445.16039372901 98681.48736369978,57435.780738211564 98684.33265109437,57427.136398178845 98688.95314710481,57419.55957077049 98695.17128866061,57413.34142921469 98702.74811606896,57408.720933204255 98711.39245610169,57405.87564580966 98720.77211161914,57404.91490982982 98730.52662771994))',4547)
+   );
+</code></pre>
+<ol start="2">
+<li>asp.net web api中，post请求的方式比较怪异，最好使用dynamic数据类型，在使用动态类型时，需要对数据进行解析操作：</li>
+</ol>
+<pre><code class="language-c#">[HttpPost]
+[Route(&quot;getSpatialQueryInfo&quot;)]
+public Result&lt;List&lt;KgLandBound&gt;&gt; getSpatialQueryInfo(dynamic obj)
+{
+    string wkt = obj.wkt;
+    return sas.spatialQuery(wkt);
+}
+</code></pre>
+<ol start="3">
+<li>font awesome中使用数字</li>
+</ol>
+<pre><code class="language-html">&lt;span class=&quot;fa-stack&quot;&gt;
+   &lt;span class=&quot;fa fa-circle-thin fa-stack-2x&quot; style=&quot;color: red&quot;&gt;&lt;/span&gt;
+   &lt;strong class=&quot;fa-stack-1x&quot; style=&quot;color: red&quot;&gt;2&lt;/strong&gt;
+&lt;/span&gt;
+</code></pre>
+<ol start="4">
+<li>angularjs中，执行ng-repeat操作时，遍历时加上index</li>
+</ol>
+<pre><code class="language-js">ng-repeat=&quot;layer in table.data track by $index&quot;
+</code></pre>
+<ol start="5">
+<li>根据pg查出来的geometry，顺带把面积也进行查询</li>
+</ol>
+<pre><code class="language-sql">select res.gid,res.ydtype,res.ydcode,res.shape_area,st_area(res.wkt),res.wkt from (
+ SELECT gid, ydtype, ydcode,  shape_area,ST_Intersection(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547)) as wkt
+ FROM public.kg_land_bound2  where ST_Intersects(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547))
+) as res 
+
+</code></pre>
+<h2 id="0806">0806</h2>
+<ol>
+<li>angularjs中的watch使用方法：</li>
+</ol>
+<pre><code class="language-js">$scope.$watch(&quot;bufferDistance&quot;,function (newValue,oldValue){
+    if(newValue &gt; 0){
+        $scope.showDrawLine = true;
+    }else{
+        $scope.showDrawLine = false;
+    }
+},true);
+</code></pre>
+<ol start="2">
+<li>postgresql中的简单分页:limit代表每页个数，offset代表偏移量，以下面的代码为例，offset 20代表前面偏移20个数据，从第二十一个数据开始；</li>
+</ol>
+<pre><code class="language-sql">SELECT gid, ydcode, ydtype, capability, bldhlimit,shape_leng, shape_area, geom
+	FROM public.kg_land_bound2 order by gid limit 10 offset 20;
+</code></pre>
+<ol start="3">
+<li>angularjs使用ng-class对于样式的动态修改，使用ng-repeat循环生成子列表。其中通过$index与selected来进行判断，如果两个值相等，那么，selectedBaseMap样式将会生效，从而出现样式切换的效果；</li>
+</ol>
+<pre><code class="language-html">&lt;div ng-repeat=&quot;item in baseLayers&quot;
+         ng-class=&quot;{selectedBaseMap:$index == selected}&quot;
+         style=&quot;background: url('../../App/assets/images/{{item.img}}')&quot;
+         ng-click=&quot;showBaseMap(item.title,$index)&quot;&gt;
+        &lt;span class=&quot;baseMapTitle&quot; ng-class=&quot;{baseMapTitleActive:$index == selected}&quot;&gt;
+            {{item.title}}
+        &lt;/span&gt;
+    &lt;/div&gt;
+</code></pre>
+<pre><code class="language-js">$scope.selected = 1 //给selected设置一个默认值，使得有默认选中的效果
+</code></pre>
+<ol start="4">
+<li>完整的分页查询语句</li>
+</ol>
+<pre><code class="language-sql">select 
+	res.gid,
+	res.ydtype,
+	res.ydcode,
+	res.shape_area,
+	st_area(res.wkt),
+	res.wkt, 
+	res.fullCount from 
+	(
+		SELECT 
+			gid, 
+			ydtype, 
+			ydcode,  
+			shape_area,
+			count(*) OVER() AS fullCount,
+			ST_Intersection(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547)) as wkt
+		FROM 
+			public.kg_land_bound2  
+		where 
+			ST_Intersects(geom,ST_MakeEnvelope(49701.02023537382,96951.72932012533,49865.59139784948,97115.77131487598,4547))
+		order by gid limit 3 offset 0
+	)
+as res;
+</code></pre>
+<h2 id="0807">0807</h2>
+<ol>
+<li>ng-table的分页方式</li>
+</ol>
+<pre><code class="language-html"> &lt;table ng-table=&quot;tp&quot; class=&quot;table table-condensed table-bordered table-striped&quot;&gt;
+                &lt;tr ng-repeat=&quot;row in $data track by $index&quot;&gt;
+                    &lt;td data-title=&quot;'地块名称'&quot;&gt;{{row.ydcode}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'地块编码'&quot; style=&quot;max-width: 330px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;&quot; &gt;{{row.ydtype}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'地块面积'&quot; style=&quot;max-width: 330px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;&quot; &gt;{{row.area}}&lt;/td&gt;
+                    &lt;td data-title=&quot;'操作'&quot;&gt;
+                        &lt;span class=&quot;fa fa-crosshairs&quot; ng-click=&quot;moveToData($index)&quot; title=&quot;移动&quot;&gt;&lt;/span&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+&lt;script&gt;
+function bufferQuery(wkt,distance) {
+                $scope.loadingPanel = true;
+                spatialApi.getPagedSpatialAnalysisInfo(wkt,1,20).then(
+                    resp =&gt; {
+                        showData(resp.data.data.data);
+                        $scope.table.data = resp.data.data.data;
+                        $scope.loadingPanel = false;
+                    }
+                );
+                //展示查询返回的数据
+                function showData(data) {
+                    $scope.tp = new NgTableParams(
+                        {
+                            count: 20,
+                        },
+                        {
+                            counts: [],
+                            dataset:data,
+                            getData: (params) =&gt; {
+                                return spatialApi.getPagedSpatialAnalysisInfo(wkt,params.page(),params.count()).then(res =&gt; {
+                                    params.total(res.data.data.total);
+                                    $scope.table.data = res.data.data.data;
+                                    return res.data.data.data;
+                                });
+                            },
+                        }
+                    );
+
+                }
+            }
+&lt;/script&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>http://localhost:4004/post/hello-gridea</id>
+        <link href="http://localhost:4004/post/hello-gridea">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="http://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
